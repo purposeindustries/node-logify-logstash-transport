@@ -1,0 +1,30 @@
+{
+  "name": "logify-logstash-transport",
+  "version": "1.0.0",
+  "description": "logstash transport for logify",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Purpose Industries <dev@purposeindustries.co>",
+  "license": "MIT",
+  "dependencies": {
+    "flat": "^1.2.1",
+    "logstash-client": "^1.0.0",
+    "merge-object": "^1.0.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/purposeindustries/node-logify-logstash-transport.git"
+  },
+  "keywords": [
+    "logstash",
+    "logify",
+    "logging"
+  ],
+  "bugs": {
+    "url": "https://github.com/purposeindustries/node-logify-logstash-transport/issues"
+  },
+  "homepage": "https://github.com/purposeindustries/node-logify-logstash-transport"
+}
