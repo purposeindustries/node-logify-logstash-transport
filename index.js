@@ -21,18 +21,15 @@ LogstashTransport.prototype.log = function log(data) {
   var msg = {
     'message': format.apply(null, [message.msg].concat(message.args)),
     '@timestamp': message.date.toISOString(),
-    tags: message.tags,
-    source: message.source || [
-      message.context.host,
-      message.context.appName
-    ].join('/'),
+    '@version': '1',
+    tags: message.context.tags,
+    source: message.context.source || message.context.host,
     level: message.level.name
   };
-  Object.keys(message).forEach(function(key) {
+  Object.keys(msg).forEach(function(key) {
     delete message[key];
   });
-  // context can be null
-  var context = message.context || {};
+  var context = message.context;
   delete message.context;
   var flatContext = flatten(context);
   var flatMessage = flatten(message);
