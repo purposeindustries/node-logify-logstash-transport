@@ -2,6 +2,7 @@ var Logstash = require('logstash-client');
 var format = require('util').format;
 var merge = require('merge-object');
 var flatten = require('flat').flatten;
+var clone = require('clone');
 function LogstashTransport(opts) {
   opts = opts || {};
 
@@ -15,7 +16,8 @@ function LogstashTransport(opts) {
   });
 }
 
-LogstashTransport.prototype.log = function log(message) {
+LogstashTransport.prototype.log = function log(data) {
+  var message = clone(data);
   var msg = {
     'message': format.apply(null, [message.msg].concat(message.args)),
     '@timestamp': message.date.toISOString(),
@@ -26,10 +28,11 @@ LogstashTransport.prototype.log = function log(message) {
     ].join('/'),
     level: message.level.name
   };
-  Object.keys(msg).forEach(function(key) {
+  Object.keys(message).forEach(function(key) {
     delete message[key];
   });
-  var context = message.context;
+  // context can be null
+  var context = message.context || {};
   delete message.context;
   var flatContext = flatten(context);
   var flatMessage = flatten(message);
