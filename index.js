@@ -31,6 +31,8 @@ LogstashTransport.prototype.log = function log(data) {
   });
   var context = message.context;
   delete message.context;
+  delete message.msg;
+  delete message.args;
   var flatContext = flatten(context);
   var flatMessage = flatten(message);
   var fullMessage = merge(flatContext, flatMessage);
