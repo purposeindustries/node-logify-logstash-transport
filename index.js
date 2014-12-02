@@ -29,6 +29,12 @@ LogstashTransport.prototype.log = function log(data) {
   Object.keys(msg).forEach(function(key) {
     delete message[key];
   });
+
+  // special prop which wont get cloned
+  if (message.err) {
+    msg['err.stack'] = data.err.stack;
+  }
+
   var context = message.context;
   delete message.context;
   delete message.msg;
